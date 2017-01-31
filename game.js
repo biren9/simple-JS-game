@@ -97,20 +97,20 @@ function move() {
 
 
     if (richtung == "up") { //87 -- W
-        pos_y = pos_y - 15;
+        pos_y -= 15;
     } else if (richtung == "left") { //65 -- A
-        pos_x = pos_x - 15;
+        pos_x -= 15;
     } else if (richtung == "down") { //83 -- S
-        pos_y = pos_y + 15;
+        pos_y += 15;
     } else if (richtung == "right") { //68 -- D
-        pos_x = pos_x + 15;
+        pos_x += 15;
     }
 
     document.getElementById('player').style.top = pos_y + 'px';
     document.getElementById('player').style.left = pos_x + 'px';
 
-    document.getElementById('x_').innerHTML = "x axe: " + pos_x;
-    document.getElementById('y_').innerHTML = "y axe: " + pos_y;
+    document.getElementById('x_').innerHTML = pos_x;
+    document.getElementById('y_').innerHTML = pos_y;
 
     object_y = parseInt(document.getElementById('target').style.top);
     object_x = parseInt(document.getElementById('target').style.left);
