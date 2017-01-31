@@ -9,11 +9,13 @@ var object_y;
 
 
 function load() {
-    document.getElementById('player').style.top = "240px";
-    document.getElementById('player').style.left = "240px";
+    var player = document.getElementById('player');
+    var target = document.getElementById('target');
+    player.style.top = "240px";
+    player.style.left = "240px";
 
-    document.getElementById('target').style.top = "15px";
-    document.getElementById('target').style.left = "240px";
+    target.style.top = "15px";
+    target.style.left = "240px";
     start(true);//isInit = true
 }
 
@@ -94,7 +96,6 @@ document.onkeydown = function(event) {
 function move() {
     var pos_y = parseInt(document.getElementById('player').style.top);
     var pos_x = parseInt(document.getElementById('player').style.left);
-
 
     if (richtung == "up") { //87 -- W
         pos_y -= 15;
