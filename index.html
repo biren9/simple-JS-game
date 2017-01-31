@@ -57,6 +57,10 @@
             transform: rotate(0deg);
         }
 
+        .invisible {
+          display: none;
+        }
+
         #infos {
             width: 510px;
             margin-right: 300px;
@@ -82,9 +86,7 @@
 <body>
     <div id="infos">
         <div id="snack_left">
-            <b id="level"> Level: <span id='level_number'>1</span></b>
-            <br>
-            <b id="life">Life: <span id='life_number'>5</span></b>
+            <b id="level"> Level: <span id='level_number'></span></b>
             <br>
             <b id="x_">X axe: </b>
             <br>
@@ -106,7 +108,6 @@
         var speed;
         var timer;
         var level;
-        var life;
         var object_x;
         var object_y;
 
@@ -119,6 +120,7 @@
 
             document.getElementById('target').style.top = "15px";
             document.getElementById('target').style.left = "240px";
+            start(true);//isInit = true
         }
 
 
@@ -133,32 +135,24 @@
 
 
 
-        function start() {
-
+        function start(isInit) {
+            isInit = isInit || false;
             level = 1;
-            life = 5;
             speed = 100;
 
-            document.getElementById('life_number').innerHTML = life;
             document.getElementById('level_number').innerHTML = level;
+            document.getElementById('player').classList.remove("invisible");
 
-            next();
+            if(!isInit) next();
         }
 
 
 
         function stop() {
             clearInterval(timer);
-            life--;
 
-            if (life == 0) {
-                alert("Game Over!");
-                document.getElementById('life_number').innerHTML = life;
-            } else {
-                alert("Noch " + life + " Leben übrig...");
-                document.getElementById('life_number').innerHTML = life;
-                next();
-            }
+            document.getElementById('player').className = "invisible";
+            alert("Game Over!");
         }
 
 
@@ -167,17 +161,18 @@
             object_x = Math.floor(Math.random() * 33) * 15;
             object_y = Math.floor(Math.random() * 33) * 15;
 
-            document.getElementById('target').style.top = object_y + "px";
-            document.getElementById('target').style.left = object_x + "px";
+            var target = document.getElementById('target');
+            target.style.top = object_y + "px";
+            target.style.left = object_x + "px";
 
             document.getElementById('level_number').innerHTML = level;
         }
 
 
 
-        function gefangen() {
-            speed = speed - 2;
-            level++;
+        function captured() {
+            speed -= 2;
+            level += 1;
             clearInterval(timer);
             timer = setInterval(move, speed);
             creat_new();
@@ -227,7 +222,7 @@
             object_x = parseInt(document.getElementById('target').style.left);
 
             if (pos_x < 0 || pos_x > 510 - 15 || pos_y < 0 || pos_y > 510 - 15) stop();
-            if (pos_x == object_x && pos_y - 15 == object_y) gefangen();
+            if (pos_x == object_x && pos_y - 15 == object_y) captured();
 
         }
 
