@@ -82,11 +82,9 @@
 <body>
     <div id="infos">
         <div id="snack_left">
-            <b id="Stufe"> Stufe: 1</b>
+            <b id="level"> Level: <span id='level_number'>1</span></b>
             <br>
-            <b id="speed">0 km/h </b>
-            <br>
-            <b id="life">Leben: 5</b>
+            <b id="life">Life: <span id='life_number'>5</span></b>
             <br>
             <b id="x_">X axe: </b>
             <br>
@@ -105,11 +103,10 @@
 
     <script type="text/javascript">
         var richtung = "right";
-        var speed = 100;
-        var speed_invert = 10;
+        var speed;
         var timer;
-        var level = 1;
-        var life = 5;
+        var level;
+        var life;
         var object_x;
         var object_y;
 
@@ -126,7 +123,7 @@
 
 
 
-        function weiter() {
+        function next() {
             clearInterval(timer);
             load();
             creat_new();
@@ -141,13 +138,11 @@
             level = 1;
             life = 5;
             speed = 100;
-            speed_invert = 10;
 
-            document.getElementById('life').innerHTML = "Leben: " + life;
-            document.getElementById('Stufe').innerHTML = "Stufe: " + level;
-            document.getElementById('speed').innerHTML = speed_invert + " km/H";
+            document.getElementById('life_number').innerHTML = life;
+            document.getElementById('level_number').innerHTML = level;
 
-            weiter();
+            next();
         }
 
 
@@ -158,11 +153,11 @@
 
             if (life == 0) {
                 alert("Game Over!");
-                document.getElementById('life').innerHTML = "Leben: " + life;
+                document.getElementById('life_number').innerHTML = life;
             } else {
                 alert("Noch " + life + " Leben übrig...");
-                document.getElementById('life').innerHTML = "Leben: " + life;
-                weiter();
+                document.getElementById('life_number').innerHTML = life;
+                next();
             }
         }
 
@@ -175,15 +170,13 @@
             document.getElementById('target').style.top = object_y + "px";
             document.getElementById('target').style.left = object_x + "px";
 
-            document.getElementById('Stufe').innerHTML = "Stufe: " + level;
-            document.getElementById('speed').innerHTML = speed_invert + " km/H";
+            document.getElementById('level_number').innerHTML = level;
         }
 
 
 
         function gefangen() {
             speed = speed - 2;
-            speed_invert = speed_invert + 10;
             level++;
             clearInterval(timer);
             timer = setInterval(move, speed);
@@ -234,7 +227,6 @@
             object_x = parseInt(document.getElementById('target').style.left);
 
             if (pos_x < 0 || pos_x > 510 - 15 || pos_y < 0 || pos_y > 510 - 15) stop();
-            //alert("x: "+pos_x + "  y: " + pos_y +"--- oX: "+object_x +"  oY: " + object_y);
             if (pos_x == object_x && pos_y - 15 == object_y) gefangen();
 
         }
